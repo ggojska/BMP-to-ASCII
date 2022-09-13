@@ -5,7 +5,7 @@
 #include <vector>
 #include <iterator>
 
-char signs[] = "@%$0Oo?/[{|;:*^_,. ";
+char signs[] = "@QB#NgWM8RDHdOKq9$6khEPXwmeZaoS2yjufF]}{tx1zv7lciL/\\|?*>r^;:_\"~,'.-`";
 
 std::vector<char> readBMP(const std::string& file)
 {
@@ -39,10 +39,15 @@ std::vector<char> readBMP(const std::string& file)
 
     for (int i = 54; i < dataSize - 4; i += 3)
     {
+        int avg = (img[i] + img[i + 1] + img[i + 2]) / 3;
+        avg += 128;
         //std::cout << "R: " << int(img[i] & 0xff) << " G: " << int(img[i + 1] & 0xff) << " B: " << int(img[i + 2] & 0xff) << std::endl;
-        if (abs((img[i] + img[i + 1] + img[i + 2])) / 3 > 0)
+        if (avg > 0)
         {
-            std::cout << signs[(img[i] + img[i + 1] + img[i + 2])/3 / div] << " ";
+            if(avg > 128)
+                std::cout << "  ";
+            else
+                std::cout << signs[avg / div] << " ";
         }
         else
             std::cout << "  ";
@@ -56,5 +61,5 @@ std::vector<char> readBMP(const std::string& file)
 int main()
 {
     //std::cout << fileSize("test.bmp");
-    readBMP("test.bmp");
+    readBMP("test2.bmp");
 }
